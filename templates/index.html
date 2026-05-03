@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Chatbot</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      Order Chatbot
+      <span>Ask about orders, cancel them, or list all</span>
+    </div>
+
+    <div class="api-key-area">
+      API Key:
+      <input type="text" id="apiKey" placeholder="Enter API Key" value="secret-key-123"/>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg bot">Hello! Here is what I can do:
+- status of order 123
+- cancel order 123
+- show all orders
+- or ask me anything!</div>
+    </div>
+
+    <div class="hints">
+      Try: "status of order 123" · "cancel order 456" · "show all orders"
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="input" placeholder="Type a message..."/>
+      <button id="sendBtn" onclick="send()">Send</button>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
