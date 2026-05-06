@@ -78,5 +78,5 @@ order-chatbot/
 | Database | MariaDB |
 | AI | Google Gemini 2.5 Flash |
 | Auth | Flask Sessions + bcrypt |
-| Frontend | HTML, CSS, Vanilla JS |
+| Frontend | HTML, CSS, JS |
 
