@@ -2,14 +2,13 @@ from flask import Flask, request, jsonify, render_template, session, redirect, u
 from functools import wraps
 import os
 import re
+import secrets
 import mysql.connector
 import bcrypt
 from google import genai
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "super-secret-key-123")
-
-API_KEY = os.getenv("APP_API_KEY", "secret-key-123")
+app.secret_key = os.getenv("SECRET_KEY") or secrets.token_hex(32)
 DB_CONFIG = {
     "host": "localhost",
     "port": 3306,
@@ -23,16 +22,6 @@ ai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def get_db_connection():
     return mysql.connector.connect(**DB_CONFIG)
-
-
-def require_api_key(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        key = request.headers.get("X-API-Key")
-        if key != API_KEY:
-            return jsonify({"error": "Unauthorized. Provide a valid X-API-Key header."}), 401
-        return f(*args, **kwargs)
-    return decorated
 
 
 def require_login(f):
@@ -194,7 +183,6 @@ def home():
 
 
 @app.route("/chat", methods=["POST"])
-@require_api_key
 @require_login
 def chat():
     data = request.get_json(silent=True)
