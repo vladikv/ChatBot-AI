@@ -3,6 +3,7 @@ from functools import wraps
 import os
 import re
 import secrets
+from cancellation import extract_cancellation_order_id
 import mysql.connector
 import bcrypt
 from google import genai
@@ -193,9 +194,8 @@ def chat():
     user_id = session.get("user_id")
     response_text = ""
 
-    cancel_match = re.search(r'cancel(?:.*?)order\s+(\d+)|order\s+(\d+).*?cancel', message, re.IGNORECASE)
-    if cancel_match:
-        order_id = cancel_match.group(1) or cancel_match.group(2)
+    order_id = extract_cancellation_order_id(message)
+    if order_id:
         result = cancel_order(order_id)
         response_text = f"Order {order_id} has been successfully cancelled." if "success" in result else result["error"]
         log_request(message, response_text, user_id)
