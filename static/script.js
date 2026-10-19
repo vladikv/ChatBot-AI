@@ -1,4 +1,3 @@
-const API_KEY = "secret-key-123";
 let isLogin = true;
 
 // Check if already logged in
@@ -85,7 +84,7 @@ async function send() {
   try {
     const res = await fetch('/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-API-Key': API_KEY },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text })
     });
     const data = await res.json();

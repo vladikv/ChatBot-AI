@@ -12,7 +12,7 @@
 | 📦 **Order Management** | Check status, cancel orders, list all orders |
 | 🤖 **AI Responses** | Google Gemini 2.5 Flash for open-ended questions |
 | 📋 **Request Logging** | Every message saved to DB with user & timestamp |
-| 🛡️ **API Protection** | API key middleware on all chat endpoints |
+| 🛡️ **Authenticated Chat** | Chat requests are protected by the user's login session |
 | 🎨 **Clean Frontend** | Separate HTML / CSS / JS, no frameworks |
 
 ---
@@ -65,7 +65,8 @@ order-chatbot/
 
 - Passwords hashed with **bcrypt** — never stored as plain text
 - **Parameterized SQL queries** — protection against SQL injection
-- **API key middleware** — all `/chat` requests require a valid key
+- **Login-protected chat** — `/chat` requests require an authenticated session
+- **Session secret** — set `SECRET_KEY` to a stable, random value in deployment; if omitted, a random key is generated at startup and sessions expire when the process restarts
 - **Environment variables** — no sensitive data hardcoded in source
 
 ---
@@ -79,4 +80,3 @@ order-chatbot/
 | AI | Google Gemini 2.5 Flash |
 | Auth | Flask Sessions + bcrypt |
 | Frontend | HTML, CSS, JS |
-
